@@ -5,7 +5,7 @@ import React, { useState } from 'react';
 import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '../ui/button';
-import SearchInput from '../Right/SearchInput';
+
 import { ModeToggle } from '../Right/ModeToggle';
 import { MenuIcon, X, Bell } from 'lucide-react';
 import {
@@ -106,7 +106,7 @@ const Navbar = () => {
 
           {/* Mobile Menu Toggle */}
           <div className="md:hidden flex items-center gap-2">
-            <SearchInput />
+            
             <ModeToggle />
             <Button variant="ghost" size="icon" onClick={() => setMobile(!isMobile)}>
               {isMobile ? <X className="h-6 w-6" /> : <MenuIcon className="h-6 w-6" />}

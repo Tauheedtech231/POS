@@ -18,12 +18,12 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Plus, ArrowLeft } from "lucide-react";
 import Link from "next/link";
 
-// Zod schema for form validation
+// ✅ FIXED: loyaltyPoints is now REQUIRED (no `.default()`)
 const formSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters"),
   email: z.string().email("Invalid email address"),
   phone: z.string().min(10, "Phone must be at least 10 digits").optional(),
-  loyaltyPoints: z.number().min(0).default(0),
+  loyaltyPoints: z.number().min(0), // ✅ no `.default()`, makes it required
   address: z.string().optional(),
   notes: z.string().optional(),
 });
@@ -39,7 +39,7 @@ const AddCustomerForm = () => {
       name: "",
       email: "",
       phone: "",
-      loyaltyPoints: 0,
+      loyaltyPoints: 0, // ✅ provided because it’s now required
       address: "",
       notes: "",
     },
@@ -48,7 +48,6 @@ const AddCustomerForm = () => {
   const onSubmit = async (data: CustomerFormValues) => {
     setIsLoading(true);
     try {
-      // Simulate API call
       await new Promise(resolve => setTimeout(resolve, 1000));
       console.log("Customer data:", data);
       alert("Customer added successfully!");

@@ -99,9 +99,11 @@ const Sales = () => {
           </table>
         </div>
 
-        {/* Customer */}
+        {/* Customer Selection */}
         <div>
-          <label className="block text-sm font-medium mb-1 text-black dark:text-white">Customer</label>
+          <label className="block text-sm font-medium mb-1 text-black dark:text-white">
+            Customer
+          </label>
           <Select onValueChange={(val) => setSelectedCustomer(val)}>
             <SelectTrigger className="w-full border border-gray-300 dark:border-gray-700 px-3 py-2 rounded-md flex justify-between items-center bg-white dark:bg-gray-900 text-black dark:text-white">
               <SelectValue placeholder="Select" />
@@ -119,6 +121,12 @@ const Sales = () => {
               </SelectItem>
             </SelectContent>
           </Select>
+
+          {selectedCustomer && (
+            <p className="text-sm mt-2 text-gray-600 dark:text-gray-400">
+              Selected Customer: <strong>{selectedCustomer}</strong>
+            </p>
+          )}
         </div>
 
         {/* Payment Summary */}
@@ -147,7 +155,9 @@ const Sales = () => {
           </button>
         </div>
 
-        <p className="text-center text-xs text-muted-foreground pt-6 dark:text-gray-500">Offline Mode</p>
+        <p className="text-center text-xs text-muted-foreground pt-6 dark:text-gray-500">
+          Offline Mode
+        </p>
       </div>
     </div>
   );

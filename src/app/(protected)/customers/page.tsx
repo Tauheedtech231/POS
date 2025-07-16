@@ -45,16 +45,27 @@ const CustomersPage = () => {
     setSortConfig({ key, direction });
   };
 
-  const sortedCustomers = [...customers].sort((a, b) => {
-    if(!sortConfig?.key) return 0;
-    if (a[sortConfig.key] < b[sortConfig.key]) {
-      return sortConfig.direction === 'asc' ? -1 : 1;
-    }
-    if (a[sortConfig.key] > b[sortConfig.key]) {
-      return sortConfig.direction === 'asc' ? 1 : -1;
-    }
-    return 0;
-  });
+  // const sortedCustomers = [...customers].sort((a, b) => {
+  //   if(!sortConfig?.key) return 0;
+  //   if (a[sortConfig.key] < b[sortConfig.key]) {
+  //     return sortConfig.direction === 'asc' ? -1 : 1;
+  //   }
+  //   if (a[sortConfig.key] > b[sortConfig.key]) {
+  //     return sortConfig.direction === 'asc' ? 1 : -1;
+  //   }
+  //   return 0;
+  // });
+  const sortedCustomers = [...customers].sort((a, b) =>{
+    if(!sortConfig?.key)return 0;
+    const key=sortConfig.key as keyof Customer;
+    const aValue = typeof a[key] === 'string' ? a[key].toLowerCase() : a[key];
+    const bValue = typeof b[key] === 'string' ? b[key].toLowerCase() : b[key];
+   if (aValue! > bValue!) {
+    return sortConfig.direction === 'asc' ? 1 : -1;
+  }
+  return 0
+
+  })
 
   const filteredCustomers = sortedCustomers.filter(customer =>
     customer.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
