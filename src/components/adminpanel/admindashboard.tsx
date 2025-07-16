@@ -1,70 +1,583 @@
-import React from 'react';
-import Link from 'next/link';
-import { Button } from '../ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
-import { FileText, MessageCircle, Heart } from 'lucide-react';
-import Recentarticles from './Recentarticles';
+// "use client";
 
-const Admindashboard = () => {
-  // Replace with dynamic counts later
-  const articleCount = 42;
-  const commentCount = 128;
-  const likeCount = 256;
+// import React from "react";
+// import { Card, CardContent } from "@/components/ui/card";
+// import {
+//   Tabs,
+//   TabsList,
+//   TabsTrigger,
+//   TabsContent,
+// } from "@/components/ui/tabs";
+// import {
+//   LineChart,
+//   Line,
+//   XAxis,
+//   Tooltip,
+//   ResponsiveContainer,
+//   CartesianGrid,
+// } from "recharts";
 
+// // Sample chart data
+// const dailyData = [
+//   { name: "Mon", value: 100 },
+//   { name: "Tue", value: 120 },
+//   { name: "Wed", value: 90 },
+//   { name: "Thu", value: 150 },
+//   { name: "Fri", value: 80 },
+//   { name: "Sat", value: 130 },
+//   { name: "Sun", value: 110 },
+// ];
+
+// const weeklyData = [
+//   { name: "Week 1", value: 700 },
+//   { name: "Week 2", value: 800 },
+//   { name: "Week 3", value: 750 },
+//   { name: "Week 4", value: 900 },
+// ];
+
+// const monthlyData = [
+//   { name: "Jan", value: 3200 },
+//   { name: "Feb", value: 2800 },
+//   { name: "Mar", value: 3000 },
+//   { name: "Apr", value: 3500 },
+// ];
+
+// const Dashboard = () => {
+//   return (
+//     <div className="p-6 space-y-6">
+//       {/* Header Section */}
+//       <div className="flex flex-col md:flex-row justify-between items-start md:items-center">
+//         <div>
+//           <h1 className="text-3xl font-bold text-foreground">Dashboard</h1>
+//           <p className="text-muted-foreground text-sm">
+//             Overview of your business performance
+//           </p>
+//         </div>
+
+//         {/* Status Cards */}
+//         <div className="mt-4 md:mt-0 grid gap-3">
+//           <div className="bg-background border border-border rounded-lg p-4 space-y-1">
+//             <p className="font-semibold text-yellow-600">Out of Stock</p>
+//             <p className="text-sm text-muted-foreground">10 items out of stock</p>
+//           </div>
+//           <div className="bg-background border border-border rounded-lg p-4 space-y-1">
+//             <p className="font-semibold text-red-500">Sync Failed</p>
+//             <p className="text-sm text-muted-foreground">Last sync failed at 10:00 AM</p>
+//           </div>
+//           {/* Low Stock Alert */}
+//           <div className="bg-yellow-50 border-l-4 border-yellow-500 p-4 rounded-lg shadow-sm flex items-start gap-3">
+//             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-yellow-500 mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+//               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M12 18a9 9 0 100-18 9 9 0 000 18z" />
+//             </svg>
+//             <div>
+//               <p className="font-semibold text-yellow-700">Low Stock Alert</p>
+//               <p className="text-sm text-yellow-700">5 products are below the reorder threshold.</p>
+//             </div>
+//           </div>
+//         </div>
+//       </div>
+
+//       {/* Stats */}
+//       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+//         {[
+//           { title: "Total Sales", value: "$250,000" },
+//           { title: "Today's Revenue", value: "$1,500" },
+//           { title: "Active Users", value: "12" },
+//           { title: "Low Stock Alerts", value: "5" },
+//         ].map((item) => (
+//           <Card key={item.title}>
+//             <CardContent className="p-4">
+//               <p className="text-sm text-muted-foreground">{item.title}</p>
+//               <p className="text-2xl font-bold">{item.value}</p>
+//             </CardContent>
+//           </Card>
+//         ))}
+//       </div>
+
+//       {/* Sales Chart Tabs */}
+//       <Tabs defaultValue="weekly" className="w-full">
+//         <TabsList className="mb-6 flex gap-2 bg-muted p-1 rounded-lg w-fit">
+//           {["daily", "weekly", "monthly"].map((tab) => (
+//             <TabsTrigger
+//               key={tab}
+//               value={tab}
+//               className="rounded-md px-4 py-2 text-sm font-medium transition-colors data-[state=active]:bg-primary data-[state=active]:text-white hover:bg-primary/10"
+//             >
+//               {tab.charAt(0).toUpperCase() + tab.slice(1)}
+//             </TabsTrigger>
+//           ))}
+//         </TabsList>
+
+//         {[
+//           { label: "daily", title: "Daily Sales", data: dailyData, growth: "+15%" },
+//           { label: "weekly", title: "Weekly Sales", data: weeklyData },
+//           { label: "monthly", title: "Monthly Sales", data: monthlyData },
+//         ].map(({ label, title, data, growth }) => (
+//           <TabsContent key={label} value={label}>
+//             <Card className="p-6">
+//               <div className="flex justify-between items-center mb-3">
+//                 <h3 className="text-lg font-semibold">{title}</h3>
+//                 {growth && (
+//                   <span className="text-green-600 font-medium text-sm bg-green-100 px-2 py-1 rounded">
+//                     ▲ {growth}
+//                   </span>
+//                 )}
+//               </div>
+//               <ResponsiveContainer width="100%" height={300}>
+//                 <LineChart data={data}>
+//                   <CartesianGrid strokeDasharray="3 3" />
+//                   <XAxis dataKey="name" />
+//                   <Tooltip />
+//                   <Line
+//                     type="monotone"
+//                     dataKey="value"
+//                     stroke="#3b82f6"
+//                     strokeWidth={3}
+//                   />
+//                 </LineChart>
+//               </ResponsiveContainer>
+//             </Card>
+//           </TabsContent>
+//         ))}
+//       </Tabs>
+
+//       {/* Top Selling Products */}
+//       <div className="bg-background rounded-xl border p-6">
+//         <h2 className="text-lg font-semibold mb-4">Top Selling Products</h2>
+//         <div className="overflow-x-auto">
+//           <table className="w-full text-sm text-left">
+//             <thead className="text-muted-foreground border-b">
+//               <tr>
+//                 <th className="py-2 px-4">Product</th>
+//                 <th className="py-2 px-4">Category</th>
+//                 <th className="py-2 px-4">Units Sold</th>
+//                 <th className="py-2 px-4">Revenue</th>
+//               </tr>
+//             </thead>
+//             <tbody>
+//               {[
+//                 { name: "Organic Apples", category: "Produce", sold: 150, revenue: "$300" },
+//                 { name: "Almond Milk", category: "Dairy", sold: 80, revenue: "$160" },
+//                 { name: "Whole Grain Bread", category: "Bakery", sold: 60, revenue: "$120" },
+//               ].map((item, i) => (
+//                 <tr key={i} className="border-t">
+//                   <td className="py-2 px-4">{item.name}</td>
+//                   <td className="py-2 px-4">{item.category}</td>
+//                   <td className="py-2 px-4">{item.sold}</td>
+//                   <td className="py-2 px-4">{item.revenue}</td>
+//                 </tr>
+//               ))}
+//             </tbody>
+//           </table>
+//         </div>
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default Dashboard;
+"use client";
+
+import React from "react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Tabs,
+  TabsList,
+  TabsTrigger,
+  TabsContent,
+} from "@/components/ui/tabs";
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  Tooltip,
+  Legend,
+  ResponsiveContainer,
+  CartesianGrid,
+  BarChart,
+  Bar,
+  PieChart,
+  Pie,
+  Cell
+} from "recharts";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Icons } from "@/components/ui/icon";
+import Link from "next/link";
+
+const dailyData = [
+  { name: "Mon", value: 100, returns: 12 },
+  { name: "Tue", value: 120, returns: 8 },
+  { name: "Wed", value: 90, returns: 15 },
+  { name: "Thu", value: 150, returns: 5 },
+  { name: "Fri", value: 80, returns: 10 },
+  { name: "Sat", value: 130, returns: 7 },
+  { name: "Sun", value: 110, returns: 9 },
+];
+
+const weeklyData = [
+  { name: "Week 1", sales: 700, orders: 45 },
+  { name: "Week 2", sales: 800, orders: 52 },
+  { name: "Week 3", sales: 750, orders: 48 },
+  { name: "Week 4", sales: 900, orders: 60 },
+];
+
+const monthlyData = [
+  { name: "Jan", sales: 3200, expenses: 2200 },
+  { name: "Feb", sales: 2800, expenses: 2000 },
+  { name: "Mar", sales: 3000, expenses: 2100 },
+  { name: "Apr", sales: 3500, expenses: 2300 },
+];
+
+const productData = [
+  { name: "Organic Apples", category: "Produce", sold: 150, revenue: 300, stock: 15 },
+  { name: "Almond Milk", category: "Dairy", sold: 120, revenue: 480, stock: 8 },
+  { name: "Whole Wheat Bread", category: "Bakery", sold: 95, revenue: 190, stock: 3 },
+  { name: "Free Range Eggs", category: "Dairy", sold: 80, revenue: 160, stock: 22 },
+  { name: "Avocados", category: "Produce", sold: 65, revenue: 195, stock: 5 },
+];
+
+const categoryData = [
+  { name: "Produce", value: 35 },
+  { name: "Dairy", value: 25 },
+  { name: "Bakery", value: 20 },
+  { name: "Meat", value: 15 },
+  { name: "Other", value: 5 },
+];
+
+const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#8884D8'];
+
+const Dashboard = () => {
   return (
-    <main className="min-h-screen px-4 py-6 md:px-6 lg:px-12">
-      {/* Top bar */}
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
+    <div className="p-6 space-y-6">
+      {/* Header Section */}
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
         <div>
-          <h1 className="text-2xl font-bold">Blog Dashboard</h1>
-          <p className="text-sm text-muted-foreground">Manage your blog content</p>
+          <h1 className="text-3xl font-bold text-foreground">Dashboard</h1>
+          <p className="text-muted-foreground text-sm">
+            Overview of your business performance
+          </p>
         </div>
-        <Link href="/dashboard/articles/new" className="w-full sm:w-auto">
-          <Button className="w-full sm:w-auto">Create Article</Button>
-        </Link>
+
+        <div className="flex flex-row gap-3 overflow-x-auto w-full md:w-auto pb-2">
+          <div className="bg-background border border-border rounded-lg p-4 min-w-[200px]">
+            <div className="flex items-center gap-2">
+              <div className="w-2 h-2 rounded-full bg-warning"></div>
+              <p className="font-medium text-sm">Out of Stock</p>
+            </div>
+            <p className="text-lg font-semibold mt-1">10</p>
+            <p className="text-xs text-muted-foreground">items</p>
+          </div>
+          
+          <div className="bg-background border border-border rounded-lg p-4 min-w-[200px]">
+            <div className="flex items-center gap-2">
+              <div className="w-2 h-2 rounded-full bg-destructive"></div>
+              <p className="font-medium text-sm">Sync Failed</p>
+            </div>
+            <p className="text-lg font-semibold mt-1">10:00 AM</p>
+            <p className="text-xs text-muted-foreground">last attempt</p>
+          </div>
+          
+          <div className="bg-background border border-border rounded-lg p-4 min-w-[200px]">
+            <div className="flex items-center gap-2">
+              <div className="w-2 h-2 rounded-full bg-yellow-500"></div>
+              <p className="font-medium text-sm">Low Stock</p>
+            </div>
+            <p className="text-lg font-semibold mt-1">5</p>
+            <p className="text-xs text-muted-foreground">items</p>
+          </div>
+        </div>
       </div>
 
-      {/* Responsive Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
-        {/* Total Articles */}
-        <Card className="w-full">
-          <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-medium">Total Articles</CardTitle>
-            <FileText className="h-5 w-5 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">{articleCount}</div>
-            <p className="text-xs text-muted-foreground">+5 from last month</p>
-          </CardContent>
-        </Card>
+      {/* Stats Cards */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        {[
+          { title: "Total Sales", value: "$250,000", change: "+12%", icon: "dollar" },
+          { title: "Today's Revenue", value: "$1,500", change: "+5%", icon: "activity" },
+          { title: "Active Users", value: "12", change: "+2", icon: "users" },
+          { title: "Conversion Rate", value: "3.2%", change: "+0.4%", icon: "trendingUp" },
+        ].map((stat) => (
+          <Card key={stat.title}>
+            <CardContent className="p-4 flex flex-col">
+              <div className="flex justify-between items-start">
+                <p className="text-muted-foreground text-sm">{stat.title}</p>
+                <div className="p-2 rounded-lg bg-primary/10">
+  {
+    (() => {
+      const Icon = Icons[stat.icon as keyof typeof Icons];
+      return <Icon className="w-4 h-4 text-primary" />;
+    })()
+  }
+</div>
 
-        {/* Total Comments */}
-        <Card className="w-full">
-          <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-medium">Total Comments</CardTitle>
-            <MessageCircle className="h-5 w-5 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">{commentCount}</div>
-            <p className="text-xs text-muted-foreground">+12 from last week</p>
-          </CardContent>
-        </Card>
+              </div>
+              <p className="text-2xl font-bold mt-2">{stat.value}</p>
+              <Badge variant="secondary" className="mt-2 w-fit">
+                {stat.change}
+              </Badge>
+            </CardContent>
+          </Card>
+        ))}
+      </div>
 
-        {/* Total Likes */}
-        <Card className="w-full">
-          <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-medium">Total Likes</CardTitle>
-            <Heart className="h-5 w-5 text-muted-foreground" />
+      {/* Alerts Section */}
+      <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
+  <div className="flex items-center justify-between">
+    <div className="flex items-center gap-3">
+      <div className="p-2 rounded-full bg-yellow-100">
+        <Icons.alertTriangle className="w-5 h-5 text-yellow-600" />
+      </div>
+      <div>
+        <p className="font-semibold">Low Stock Alert</p>
+        <p className="text-sm text-yellow-700">
+          5 products are below the reorder threshold. Consider restocking soon.
+        </p>
+      </div>
+    </div>
+    <Link href="/allproducts">
+      <Button
+        variant="outline"
+        size="sm"
+        className="border-yellow-300 text-yellow-700 hover:bg-yellow-50"
+      >
+        View Products
+      </Button>
+    </Link>
+  </div>
+</div>
+
+
+      {/* Charts Section */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        {/* Main Chart */}
+        <div className="lg:col-span-2">
+          <Tabs defaultValue="weekly">
+            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-4">
+              <h2 className="text-lg font-semibold">Sales Overview</h2>
+              <TabsList className="bg-muted p-1 rounded-lg">
+                {["daily", "weekly", "monthly"].map((type) => (
+                  <TabsTrigger
+                    key={type}
+                    value={type}
+                    className="rounded-md px-4 py-2 text-sm font-medium transition-colors data-[state=active]:bg-primary data-[state=active]:text-white hover:bg-primary/10"
+                  >
+                    {type.charAt(0).toUpperCase() + type.slice(1)}
+                  </TabsTrigger>
+                ))}
+              </TabsList>
+            </div>
+
+            <TabsContent value="daily">
+              <Card>
+                <CardHeader>
+                  <CardTitle>Daily Sales</CardTitle>
+                  <div className="flex items-center gap-2">
+                    <span className="text-green-600 font-medium text-sm flex items-center">
+                      <Icons.arrowUp className="w-4 h-4 mr-1" /> +15%
+                    </span>
+                    <span className="text-muted-foreground text-sm">vs last week</span>
+                  </div>
+                </CardHeader>
+                <CardContent>
+                  <div className="h-[300px]">
+                    <ResponsiveContainer width="100%" height="100%">
+                      <LineChart data={dailyData}>
+                        <CartesianGrid strokeDasharray="3 3" vertical={false} />
+                        <XAxis dataKey="name" />
+                        <YAxis />
+                        <Tooltip />
+                        <Legend />
+                        <Line
+                          dataKey="value"
+                          name="Sales"
+                          stroke="#3b82f6"
+                          strokeWidth={2}
+                          activeDot={{ r: 6 }}
+                        />
+                        <Line
+                          dataKey="returns"
+                          name="Returns"
+                          stroke="#ef4444"
+                          strokeWidth={2}
+                          activeDot={{ r: 6 }}
+                        />
+                      </LineChart>
+                    </ResponsiveContainer>
+                  </div>
+                </CardContent>
+              </Card>
+            </TabsContent>
+
+            <TabsContent value="weekly">
+              <Card>
+                <CardHeader>
+                  <CardTitle>Weekly Performance</CardTitle>
+                  <div className="flex items-center gap-2">
+                    <span className="text-green-600 font-medium text-sm flex items-center">
+                      <Icons.arrowUp className="w-4 h-4 mr-1" /> +8%
+                    </span>
+                    <span className="text-muted-foreground text-sm">vs last month</span>
+                  </div>
+                </CardHeader>
+                <CardContent>
+                  <div className="h-[300px]">
+                    <ResponsiveContainer width="100%" height="100%">
+                      <BarChart data={weeklyData}>
+                        <CartesianGrid strokeDasharray="3 3" vertical={false} />
+                        <XAxis dataKey="name" />
+                        <YAxis />
+                        <Tooltip />
+                        <Legend />
+                        <Bar dataKey="sales" name="Sales" fill="#3b82f6" radius={[4, 4, 0, 0]} />
+                        <Bar dataKey="orders" name="Orders" fill="#10b981" radius={[4, 4, 0, 0]} />
+                      </BarChart>
+                    </ResponsiveContainer>
+                  </div>
+                </CardContent>
+              </Card>
+            </TabsContent>
+
+            <TabsContent value="monthly">
+              <Card>
+                <CardHeader>
+                  <CardTitle>Monthly Trends</CardTitle>
+                  <div className="flex items-center gap-2">
+                    <span className="text-green-600 font-medium text-sm flex items-center">
+                      <Icons.arrowUp className="w-4 h-4 mr-1" /> +12%
+                    </span>
+                    <span className="text-muted-foreground text-sm">vs last quarter</span>
+                  </div>
+                </CardHeader>
+                <CardContent>
+                  <div className="h-[300px]">
+                    <ResponsiveContainer width="100%" height="100%">
+                      <LineChart data={monthlyData}>
+                        <CartesianGrid strokeDasharray="3 3" vertical={false} />
+                        <XAxis dataKey="name" />
+                        <YAxis />
+                        <Tooltip />
+                        <Legend />
+                        <Line
+                          dataKey="sales"
+                          name="Sales"
+                          stroke="#3b82f6"
+                          strokeWidth={2}
+                          activeDot={{ r: 6 }}
+                        />
+                        <Line
+                          dataKey="expenses"
+                          name="Expenses"
+                          stroke="#f59e0b"
+                          strokeWidth={2}
+                          activeDot={{ r: 6 }}
+                        />
+                      </LineChart>
+                    </ResponsiveContainer>
+                  </div>
+                </CardContent>
+              </Card>
+            </TabsContent>
+          </Tabs>
+        </div>
+
+        {/* Category Breakdown */}
+        <Card>
+          <CardHeader>
+            <CardTitle>Sales by Category</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{likeCount}</div>
-            <p className="text-xs text-muted-foreground">+30 from yesterday</p>
+            <div className="h-[300px]">
+              <ResponsiveContainer width="100%" height="100%">
+                <PieChart>
+                  <Pie
+                    data={categoryData}
+                    cx="50%"
+                    cy="50%"
+                    labelLine={false}
+                    outerRadius={80}
+                    fill="#8884d8"
+                    dataKey="value"
+                    label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
+                  >
+                    {categoryData.map((entry, index) => (
+                      <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                    ))}
+                  </Pie>
+                  <Tooltip />
+                </PieChart>
+              </ResponsiveContainer>
+            </div>
+            <div className="mt-4 grid grid-cols-2 gap-2">
+              {categoryData.map((category, index) => (
+                <div key={category.name} className="flex items-center gap-2">
+                  <div 
+                    className="w-3 h-3 rounded-full" 
+                    style={{ backgroundColor: COLORS[index % COLORS.length] }}
+                  ></div>
+                  <span className="text-sm">{category.name}</span>
+                  <span className="text-sm font-medium ml-auto">{category.value}%</span>
+                </div>
+              ))}
+            </div>
           </CardContent>
         </Card>
       </div>
-      <Recentarticles/>
-    </main>
+
+      {/* Products Table */}
+      <Card>
+        <CardHeader>
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+            <CardTitle>Top Selling Products</CardTitle>
+            <Button variant="outline" size="sm" className="flex items-center gap-2">
+              <Icons.download className="w-4 h-4" />
+              Export
+            </Button>
+          </div>
+        </CardHeader>
+        <CardContent>
+          <div className="border rounded-lg overflow-hidden">
+            <div className="overflow-x-auto">
+              <table className="w-full text-sm">
+                <thead className="bg-muted">
+                  <tr>
+                    <th className="py-3 px-4 text-left font-medium">Product</th>
+                    <th className="py-3 px-4 text-left font-medium">Category</th>
+                    <th className="py-3 px-4 text-left font-medium">Sold</th>
+                    <th className="py-3 px-4 text-left font-medium">Revenue</th>
+                    <th className="py-3 px-4 text-left font-medium">Stock</th>
+                    <th className="py-3 px-4 text-left font-medium">Status</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y">
+                  {productData.map((product) => (
+                    <tr key={product.name} className="hover:bg-muted/50">
+                      <td className="py-3 px-4">{product.name}</td>
+                      <td className="py-3 px-4">
+                        <Badge variant="outline">{product.category}</Badge>
+                      </td>
+                      <td className="py-3 px-4">{product.sold}</td>
+                      <td className="py-3 px-4">${product.revenue}</td>
+                      <td className="py-3 px-4">{product.stock}</td>
+                      <td className="py-3 px-4">
+                        {product.stock < 5 ? (
+                          <Badge variant="destructive">Low Stock</Badge>
+                        ) : product.stock < 10 ? (
+                          <Badge >Warning</Badge>
+                        ) : (
+                          <Badge >In Stock</Badge>
+                        )}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+    </div>
   );
 };
 
-export default Admindashboard;
+export default Dashboard;

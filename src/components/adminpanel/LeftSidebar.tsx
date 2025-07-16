@@ -10,14 +10,16 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
-import { Home, FileText, MessageSquare, BarChart2, Settings } from "lucide-react";
+import { Home, FileText,  BarChart2, Settings,History } from "lucide-react";
 import Link from "next/link";
 
 const menuItems = [
   { name: "Overview", icon: Home, href: "/dashboard" },
-  { name: "Articles", icon: FileText, href: "/dashboard/articles" },
-  { name: "Comments", icon: MessageSquare, href: "/dashboard/comments" },
+  { name: "Users", icon: FileText, href: "/dashboard/users" },
+
   { name: "Analytics", icon: BarChart2, href: "/dashboard/analytics" },
+   { name: "Purchase History", icon: History, href: "/dashboard/history" },
+   
   { name: "Settings", icon: Settings, href: "/dashboard/settings" },
 ];
 
@@ -29,9 +31,9 @@ const LeftSidebar = () => {
       </SheetTrigger>
       <SheetContent side="left" className="w-[280px] sm:w-[300px] p-6">
         <SheetHeader>
-          <SheetTitle className="text-xl">Blog Dashboard</SheetTitle>
+          <SheetTitle className="text-xl">POS Dashboard</SheetTitle>
           <SheetDescription className="text-sm">
-            Navigate through your blog features.
+              Quick navigation for POS features.
           </SheetDescription>
         </SheetHeader>
 

@@ -1,14 +1,13 @@
-import Admindashboard from '@/components/adminpanel/admindashboard'
+import Dashboard from '@/components/adminpanel/AdminDashboard'
 import React from 'react'
 
-const Dashboard = () => {
+const page = () => {
   return (
     <div>
-        <Admindashboard/>
-        
+        <Dashboard/>
       
     </div>
   )
 }
 
-export default Dashboard
+export default page

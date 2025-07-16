@@ -1,22 +1,16 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { GeistSans } from "geist/font/sans";
+import { GeistMono } from "geist/font/mono";
 import "./globals.css";
 import { ThemeProvider } from "@/components/ThemeProvider";
-import { ClerkProvider } from "@clerk/nextjs"; // ✅ Import ClerkProvider
+import { ClerkProvider } from "@clerk/nextjs";
+import { ToastContainer } from "react-toastify";
 
+import Navbar from "@/components/home/Navbar";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
 
 export const metadata: Metadata = {
-  title: "Byte Code Blog",
+  title: "POS Project",
   description: "Next.js App with Clerk Auth and Theme Support",
 };
 
@@ -27,23 +21,21 @@ export default function RootLayout({
 }>) {
   return (
     <ClerkProvider>
-      {/* ✅ Wrap everything in ClerkProvider */}
       <html lang="en" suppressHydrationWarning>
-        <body
-          className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-        >
-          {/* container mx-auto p-6 sm:p-12 */}
-          <div >
+        <body className={`${GeistSans.variable} ${GeistMono.variable} antialiased`}>
+          <div>
             <ThemeProvider
               attribute="class"
               defaultTheme="system"
               enableSystem
               disableTransitionOnChange
             >
+              <Navbar />
               {children}
-              
+            
             </ThemeProvider>
           </div>
+          <ToastContainer position="top-right" autoClose={3000} />
         </body>
       </html>
     </ClerkProvider>

@@ -8,14 +8,14 @@ datasource db {
 }
 
 model User {
-  name  String?
-  id           String     @id @default(cuid())
-  clerkuserid  String     @unique
-  email        String     @unique
-  imgUrl       String?
-  articles     Articles[]   // One-to-many
-  comments     Comments[]
-  likes        Like[]
+  id          String     @id @default(cuid())
+  clerkuserid String     @unique
+  email       String     @unique
+  imgUrl      String?
+  name        String?
+  articles    Articles[]
+  comments    Comments[]
+  likes       Like[]
 }
 
 model Articles {
@@ -24,30 +24,31 @@ model Articles {
   content       String
   category      String
   featuredImage String
-  author        User       @relation(fields: [authorId], references: [id])
   authorId      String
+  createdAt     DateTime   @default(now())
+  author        User       @relation(fields: [authorId], references: [id])
   comments      Comments[]
   likes         Like[]
-  createdAt DateTime @default(now())
-}
-model Comments{
-  id String @id @default(cuid())
-  content String
-  user User @relation(fields: [userId],references: [id])
-  userId String
-  articles Articles @relation(fields: [articleid],references: [id])
-  articleid String
-  createdAt DateTime @default(now())
-}
-model Like{
-  id String @id @default(cuid())
-  content String
-  user User @relation(fields: [userId],references: [id])
-  userId String
-  article Articles @relation(fields: [articleid],references: [id])
-  articleid String
-  createdAt DateTime @default(now())
-  @@unique([userId,articleid])//apply like logic
 }
 
+model Comments {
+  id        String   @id @default(cuid())
+  content   String
+  userId    String
+  articleid String
+  createdAt DateTime @default(now())
+  articles  Articles @relation(fields: [articleid], references: [id])
+  user      User     @relation(fields: [userId], references: [id])
+}
 
+model Like {
+  id        String   @id @default(cuid())
+  content   String
+  userId    String
+  articleid String
+  createdAt DateTime @default(now())
+  article   Articles @relation(fields: [articleid], references: [id])
+  user      User     @relation(fields: [userId], references: [id])
+
+  @@unique([userId, articleid])
+}
