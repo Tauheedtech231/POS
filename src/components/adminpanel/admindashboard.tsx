@@ -1,181 +1,4 @@
-// "use client";
 
-// import React from "react";
-// import { Card, CardContent } from "@/components/ui/card";
-// import {
-//   Tabs,
-//   TabsList,
-//   TabsTrigger,
-//   TabsContent,
-// } from "@/components/ui/tabs";
-// import {
-//   LineChart,
-//   Line,
-//   XAxis,
-//   Tooltip,
-//   ResponsiveContainer,
-//   CartesianGrid,
-// } from "recharts";
-
-// // Sample chart data
-// const dailyData = [
-//   { name: "Mon", value: 100 },
-//   { name: "Tue", value: 120 },
-//   { name: "Wed", value: 90 },
-//   { name: "Thu", value: 150 },
-//   { name: "Fri", value: 80 },
-//   { name: "Sat", value: 130 },
-//   { name: "Sun", value: 110 },
-// ];
-
-// const weeklyData = [
-//   { name: "Week 1", value: 700 },
-//   { name: "Week 2", value: 800 },
-//   { name: "Week 3", value: 750 },
-//   { name: "Week 4", value: 900 },
-// ];
-
-// const monthlyData = [
-//   { name: "Jan", value: 3200 },
-//   { name: "Feb", value: 2800 },
-//   { name: "Mar", value: 3000 },
-//   { name: "Apr", value: 3500 },
-// ];
-
-// const Dashboard = () => {
-//   return (
-//     <div className="p-6 space-y-6">
-//       {/* Header Section */}
-//       <div className="flex flex-col md:flex-row justify-between items-start md:items-center">
-//         <div>
-//           <h1 className="text-3xl font-bold text-foreground">Dashboard</h1>
-//           <p className="text-muted-foreground text-sm">
-//             Overview of your business performance
-//           </p>
-//         </div>
-
-//         {/* Status Cards */}
-//         <div className="mt-4 md:mt-0 grid gap-3">
-//           <div className="bg-background border border-border rounded-lg p-4 space-y-1">
-//             <p className="font-semibold text-yellow-600">Out of Stock</p>
-//             <p className="text-sm text-muted-foreground">10 items out of stock</p>
-//           </div>
-//           <div className="bg-background border border-border rounded-lg p-4 space-y-1">
-//             <p className="font-semibold text-red-500">Sync Failed</p>
-//             <p className="text-sm text-muted-foreground">Last sync failed at 10:00 AM</p>
-//           </div>
-//           {/* Low Stock Alert */}
-//           <div className="bg-yellow-50 border-l-4 border-yellow-500 p-4 rounded-lg shadow-sm flex items-start gap-3">
-//             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-yellow-500 mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-//               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M12 18a9 9 0 100-18 9 9 0 000 18z" />
-//             </svg>
-//             <div>
-//               <p className="font-semibold text-yellow-700">Low Stock Alert</p>
-//               <p className="text-sm text-yellow-700">5 products are below the reorder threshold.</p>
-//             </div>
-//           </div>
-//         </div>
-//       </div>
-
-//       {/* Stats */}
-//       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-//         {[
-//           { title: "Total Sales", value: "$250,000" },
-//           { title: "Today's Revenue", value: "$1,500" },
-//           { title: "Active Users", value: "12" },
-//           { title: "Low Stock Alerts", value: "5" },
-//         ].map((item) => (
-//           <Card key={item.title}>
-//             <CardContent className="p-4">
-//               <p className="text-sm text-muted-foreground">{item.title}</p>
-//               <p className="text-2xl font-bold">{item.value}</p>
-//             </CardContent>
-//           </Card>
-//         ))}
-//       </div>
-
-//       {/* Sales Chart Tabs */}
-//       <Tabs defaultValue="weekly" className="w-full">
-//         <TabsList className="mb-6 flex gap-2 bg-muted p-1 rounded-lg w-fit">
-//           {["daily", "weekly", "monthly"].map((tab) => (
-//             <TabsTrigger
-//               key={tab}
-//               value={tab}
-//               className="rounded-md px-4 py-2 text-sm font-medium transition-colors data-[state=active]:bg-primary data-[state=active]:text-white hover:bg-primary/10"
-//             >
-//               {tab.charAt(0).toUpperCase() + tab.slice(1)}
-//             </TabsTrigger>
-//           ))}
-//         </TabsList>
-
-//         {[
-//           { label: "daily", title: "Daily Sales", data: dailyData, growth: "+15%" },
-//           { label: "weekly", title: "Weekly Sales", data: weeklyData },
-//           { label: "monthly", title: "Monthly Sales", data: monthlyData },
-//         ].map(({ label, title, data, growth }) => (
-//           <TabsContent key={label} value={label}>
-//             <Card className="p-6">
-//               <div className="flex justify-between items-center mb-3">
-//                 <h3 className="text-lg font-semibold">{title}</h3>
-//                 {growth && (
-//                   <span className="text-green-600 font-medium text-sm bg-green-100 px-2 py-1 rounded">
-//                     ▲ {growth}
-//                   </span>
-//                 )}
-//               </div>
-//               <ResponsiveContainer width="100%" height={300}>
-//                 <LineChart data={data}>
-//                   <CartesianGrid strokeDasharray="3 3" />
-//                   <XAxis dataKey="name" />
-//                   <Tooltip />
-//                   <Line
-//                     type="monotone"
-//                     dataKey="value"
-//                     stroke="#3b82f6"
-//                     strokeWidth={3}
-//                   />
-//                 </LineChart>
-//               </ResponsiveContainer>
-//             </Card>
-//           </TabsContent>
-//         ))}
-//       </Tabs>
-
-//       {/* Top Selling Products */}
-//       <div className="bg-background rounded-xl border p-6">
-//         <h2 className="text-lg font-semibold mb-4">Top Selling Products</h2>
-//         <div className="overflow-x-auto">
-//           <table className="w-full text-sm text-left">
-//             <thead className="text-muted-foreground border-b">
-//               <tr>
-//                 <th className="py-2 px-4">Product</th>
-//                 <th className="py-2 px-4">Category</th>
-//                 <th className="py-2 px-4">Units Sold</th>
-//                 <th className="py-2 px-4">Revenue</th>
-//               </tr>
-//             </thead>
-//             <tbody>
-//               {[
-//                 { name: "Organic Apples", category: "Produce", sold: 150, revenue: "$300" },
-//                 { name: "Almond Milk", category: "Dairy", sold: 80, revenue: "$160" },
-//                 { name: "Whole Grain Bread", category: "Bakery", sold: 60, revenue: "$120" },
-//               ].map((item, i) => (
-//                 <tr key={i} className="border-t">
-//                   <td className="py-2 px-4">{item.name}</td>
-//                   <td className="py-2 px-4">{item.category}</td>
-//                   <td className="py-2 px-4">{item.sold}</td>
-//                   <td className="py-2 px-4">{item.revenue}</td>
-//                 </tr>
-//               ))}
-//             </tbody>
-//           </table>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default Dashboard;
 "use client";
 
 import React from "react";
@@ -483,45 +306,48 @@ const Dashboard = () => {
 
         {/* Category Breakdown */}
         <Card>
-          <CardHeader>
-            <CardTitle>Sales by Category</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="h-[300px]">
-              <ResponsiveContainer width="100%" height="100%">
-                <PieChart>
-                  <Pie
-                    data={categoryData}
-                    cx="50%"
-                    cy="50%"
-                    labelLine={false}
-                    outerRadius={80}
-                    fill="#8884d8"
-                    dataKey="value"
-                    label={({ name, percent }) => `${name} ${(percent ?? 100).toFixed(0)}%`}
-                  >
-                    {categoryData.map((entry, index) => (
-                      <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                    ))}
-                  </Pie>
-                  <Tooltip />
-                </PieChart>
-              </ResponsiveContainer>
-            </div>
-            <div className="mt-4 grid grid-cols-2 gap-2">
-              {categoryData.map((category, index) => (
-                <div key={category.name} className="flex items-center gap-2">
-                  <div 
-                    className="w-3 h-3 rounded-full" 
-                    style={{ backgroundColor: COLORS[index % COLORS.length] }}
-                  ></div>
-                  <span className="text-sm">{category.name}</span>
-                  <span className="text-sm font-medium ml-auto">{category.value}%</span>
-                </div>
-              ))}
-            </div>
-          </CardContent>
-        </Card>
+  <CardHeader>
+    <CardTitle>Sales by Category</CardTitle>
+  </CardHeader>
+  <CardContent>
+    <div className="h-[200px] sm:h-[300px] flex items-center justify-center">
+      <ResponsiveContainer width="100%" height="100%">
+        <PieChart>
+          <Pie
+            data={categoryData}
+            cx="50%"
+            cy="50%"
+            labelLine={false}
+            outerRadius="70%"
+            fill="#8884d8"
+            dataKey="value"
+           
+          >
+            {categoryData.map((entry, index) => (
+              <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+            ))}
+          </Pie>
+          <Tooltip />
+        </PieChart>
+      </ResponsiveContainer>
+    </div>
+
+    {/* Responsive Legend */}
+    <div className="mt-4 grid grid-cols-2 sm:grid-cols-2 gap-2">
+      {categoryData.map((category, index) => (
+        <div key={category.name} className="flex items-center gap-2">
+          <div
+            className="w-3 h-3 rounded-full"
+            style={{ backgroundColor: COLORS[index % COLORS.length] }}
+          ></div>
+          <span className="text-sm truncate">{category.name}</span>
+          <span className="text-sm font-medium ml-auto">{category.value}%</span>
+        </div>
+      ))}
+    </div>
+  </CardContent>
+</Card>
+
       </div>
 
       {/* Products Table */}

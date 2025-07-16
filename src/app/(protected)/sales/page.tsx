@@ -45,9 +45,9 @@ const Sales = () => {
   const total = subtotal - totalDiscount;
 
   return (
-    <div className="flex p-6 gap-6 min-h-screen bg-gray-50 dark:bg-black">
+    <div className="flex flex-col lg:flex-row p-4 md:p-6 gap-4 md:gap-6 min-h-screen bg-gray-50 dark:bg-black overflow-auto">
       {/* Sidebar */}
-      <div className="w-64 space-y-4">
+      <div className="w-full lg:w-1/3 space-y-4">
         <input
           type="text"
           placeholder="🔍 Scan"
@@ -68,12 +68,12 @@ const Sales = () => {
       </div>
 
       {/* Main Content */}
-      <div className="flex-1 space-y-6">
+      <div className="w-full flex-1 space-y-6">
         <h1 className="text-2xl font-bold text-black dark:text-white">Sales</h1>
 
         {/* Cart Table */}
-        <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg">
-          <table className="w-full text-sm text-black dark:text-white">
+        <div className="overflow-x-auto bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg">
+          <table className="w-full text-sm text-black dark:text-white min-w-[500px]">
             <thead className="bg-gray-100 dark:bg-gray-800 text-left">
               <tr>
                 <th className="p-3">Item</th>
@@ -146,7 +146,7 @@ const Sales = () => {
         </div>
 
         {/* Actions */}
-        <div className="flex items-center gap-4">
+        <div className="flex flex-wrap items-center gap-4">
           <button className="px-4 py-2 rounded-md bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 text-sm text-black dark:text-white">
             Cancel
           </button>
