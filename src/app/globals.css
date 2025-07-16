@@ -3,8 +3,10 @@
 
 @custom-variant dark (&:is(.dark *));
 html, body {
-  overflow: hidden;
+  overflow-x: hidden;   /* hide horizontal scroll */
+  overflow-y: auto;     /* allow vertical scroll */
 }
+
 
 
 @theme inline {
